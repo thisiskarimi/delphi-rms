@@ -9,18 +9,6 @@ object frmMain: TfrmMain
   ClientWidth = 722
   Color = clWindow
   CustomTitleBar.CaptionAlignment = taCenter
-  CustomTitleBar.BackgroundColor = 12359936
-  CustomTitleBar.ForegroundColor = clWhite
-  CustomTitleBar.InactiveBackgroundColor = clWhite
-  CustomTitleBar.InactiveForegroundColor = 10066329
-  CustomTitleBar.ButtonForegroundColor = clWhite
-  CustomTitleBar.ButtonBackgroundColor = 12359936
-  CustomTitleBar.ButtonHoverForegroundColor = clWhite
-  CustomTitleBar.ButtonHoverBackgroundColor = 9533696
-  CustomTitleBar.ButtonPressedForegroundColor = clWhite
-  CustomTitleBar.ButtonPressedBackgroundColor = 5325824
-  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
-  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -53,10 +41,8 @@ object frmMain: TfrmMain
       item
         Width = 50
       end>
-    ExplicitTop = 560
-    ExplicitWidth = 712
   end
-  object GroupBox1: TGroupBox
+  object GBLeftMenu: TGroupBox
     Left = 0
     Top = 0
     Width = 113
@@ -66,6 +52,46 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
-    ExplicitHeight = 560
+  end
+  object DBGFoods: TDBGrid
+    Left = 394
+    Top = 432
+    Width = 320
+    Height = 120
+    DataSource = DM.DSFoods
+    TabOrder = 2
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'name'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'price'
+        Visible = True
+      end>
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 394
+    Top = 392
+    Width = 240
+    Height = 25
+    DataSource = DM.DSFoods
+    TabOrder = 3
+  end
+  object DBLCBOrderCustomer: TDBLookupComboBox
+    Left = 440
+    Top = 56
+    Width = 145
+    Height = 21
+    DataField = 'full_name'
+    DataSource = DM.DSCustomer
+    TabOrder = 4
   end
 end
