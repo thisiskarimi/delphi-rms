@@ -13,29 +13,17 @@ object DM: TDM
   object tblCustomer: TFDTable
     IndexFieldNames = 'id'
     Connection = ConnectionMain
-    UpdateOptions.UpdateTableName = 'Customers'
-    TableName = 'Customers'
+    UpdateOptions.UpdateTableName = 'customer'
+    TableName = 'customer'
     Left = 48
-    Top = 96
-  end
-  object tblOrderMaster: TFDTable
-    Connection = ConnectionMain
-    UpdateOptions.UpdateTableName = 'Orders'
-    TableName = 'Orders'
-    Left = 152
-    Top = 96
-  end
-  object tblOrderDetail: TFDTable
-    Connection = ConnectionMain
-    Left = 248
     Top = 96
   end
   object tblFood: TFDTable
     Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
-    UpdateOptions.UpdateTableName = 'Foods'
-    TableName = 'Foods'
+    UpdateOptions.UpdateTableName = 'food'
+    TableName = 'food'
     Left = 344
     Top = 96
   end
@@ -47,6 +35,37 @@ object DM: TDM
   object DSCustomer: TDataSource
     DataSet = tblCustomer
     Left = 48
+    Top = 176
+  end
+  object CDSOrderItem: TClientDataSet
+    PersistDataPacket.Data = {
+      4C0000009619E0BD0100000018000000030000000000030000004C00086F7264
+      65725F6964040001000000000007666F6F645F69640400010000000000087175
+      616E7469747904000100000000000000}
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 48
+    Top = 240
+    object CDSOrderItemfood_id: TIntegerField
+      FieldName = 'food_id'
+    end
+    object CDSOrderItemfood_name: TStringField
+      FieldKind = fkLookup
+      FieldName = 'food_name'
+      LookupDataSet = tblFood
+      LookupKeyFields = 'id'
+      LookupResultField = 'name'
+      KeyFields = 'food_id'
+      Lookup = True
+    end
+    object CDSOrderItemquantity: TIntegerField
+      FieldName = 'quantity'
+    end
+  end
+  object DSOrderItem: TDataSource
+    DataSet = CDSOrderItem
+    Left = 136
     Top = 176
   end
 end

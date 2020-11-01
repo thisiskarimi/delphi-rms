@@ -9,17 +9,20 @@ uses
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Phys.SQLite,
   FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs,
-  FireDAC.Phys.SQLiteWrapper.Stat;
+  FireDAC.Phys.SQLiteWrapper.Stat, Datasnap.DBClient;
 
 type
   TDM = class(TDataModule)
     ConnectionMain: TFDConnection;
     tblCustomer: TFDTable;
-    tblOrderMaster: TFDTable;
-    tblOrderDetail: TFDTable;
     tblFood: TFDTable;
     DSFoods: TDataSource;
     DSCustomer: TDataSource;
+    CDSOrderItem: TClientDataSet;
+    CDSOrderItemfood_id: TIntegerField;
+    CDSOrderItemquantity: TIntegerField;
+    DSOrderItem: TDataSource;
+    CDSOrderItemfood_name: TStringField;
   private
     { Private declarations }
   public

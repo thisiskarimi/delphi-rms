@@ -3,7 +3,8 @@ program delphi_rms;
 uses
   Vcl.Forms,
   Main in 'Main.pas' {frmMain},
-  DataAccessLayer in 'DataAccessLayer.pas' {DM: TDataModule};
+  DataAccessLayer in 'DataAccessLayer.pas' {DM: TDataModule},
+  AddCustomer in 'AddCustomer.pas' {frmAddCustomer};
 
 {$R *.res}
 
