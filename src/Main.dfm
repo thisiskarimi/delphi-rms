@@ -1946,6 +1946,7 @@ object frmMain: TfrmMain
         2F745A2CE7FB7BB5913AE9BFEE0E07D4D5FF03F61F65697E06074F0000000049
         454E44AE426082}
       Stretch = True
+      OnClick = imgSettingClick
     end
   end
   object GBNewOrder: TGroupBox

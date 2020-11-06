@@ -3,7 +3,7 @@
 interface
 
 uses
-  functions, AddCustomer, DataAccessLayer, Winapi.Windows, Winapi.Messages,
+  functions, AddCustomer, DataAccessLayer, Settings, Winapi.Windows, Winapi.Messages,
   System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ExtCtrls,
@@ -25,6 +25,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure imgAddCustomerClick(Sender: TObject);
     procedure TimerClockTimer(Sender: TObject);
+    procedure imgSettingClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -59,6 +60,13 @@ begin
   Application.CreateForm(TfrmAddCustomer, frmAddCustomer);
   frmAddCustomer.ShowModal;
   frmAddCustomer.Destroy;
+end;
+
+procedure TfrmMain.imgSettingClick(Sender: TObject);
+begin
+  Application.CreateForm(TfrmSettings, frmSettings);
+  frmSettings.ShowModal;
+  frmSettings.Destroy;
 end;
 
 procedure TfrmMain.status_bar_panels_divider;
