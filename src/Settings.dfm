@@ -1,12 +1,9 @@
 object frmSettings: TfrmSettings
   Left = 0
   Top = 0
-  BiDiMode = bdRightToLeft
-  BorderIcons = [biSystemMenu]
-  BorderStyle = bsSingle
-  Caption = #1578#1606#1592#1740#1605#1575#1578
-  ClientHeight = 421
-  ClientWidth = 594
+  Caption = 'frmSettings'
+  ClientHeight = 418
+  ClientWidth = 592
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,11 +11,10 @@ object frmSettings: TfrmSettings
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  ParentBiDiMode = False
   PixelsPerInch = 96
   TextHeight = 13
   object TabControl1: TTabControl
-    Left = 0
+    Left = 1
     Top = 0
     Width = 593
     Height = 417
