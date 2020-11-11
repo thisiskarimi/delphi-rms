@@ -2,28 +2,91 @@
 
 interface
 
-uses System.SysUtils;
+uses System.SysUtils, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, DataAccessLayer, Vcl.Dialogs;
 function day_of_week: string;
+function IsReserveAbleRTable(rtable_number, start_time, end_time: integer;
+  date: string): boolean;
+function ReserverTable(rtable_number, customer_id, start_time,
+  end_time: integer; date: string): boolean;
 
 implementation
+
+function IsReserveAbleRTable(rtable_number, start_time, end_time: integer;
+  date: string): boolean;
+var
+  qry: TFDQuery;
+begin
+  qry := TFDQuery.Create(nil);
+  qry.Connection := dm.ConnectionMain;
+  try
+    qry.SQL.Text := 'select * from rtable_reservation where(' +
+      ' table_id = :rtable_number and reserve_date = :reserve_date and start_time = :start_time and end_time = :end_time);';
+    qry.Params.ParamByName('rtable_number').Value := rtable_number;
+    qry.Params.ParamByName('start_time').Value := start_time;
+    qry.Params.ParamByName('end_time').Value := end_time;
+    qry.Params.ParamByName('reserve_date').Value := date;
+    qry.Open;
+    if qry.RecordCount > 0 then
+      Result := False
+    else
+      Result := True;
+  except
+    Result := False;
+  end;
+end;
+
+function ReserverTable(rtable_number, customer_id, start_time,
+  end_time: integer; date: string): boolean;
+var
+  qry: TFDQuery;
+begin
+  if IsReserveAbleRTable(rtable_number, start_time, end_time, date) then
+  begin
+    qry := TFDQuery.Create(nil);
+    qry.Connection := dm.ConnectionMain;
+    try
+      Try
+        qry.SQL.Text :=
+          'insert INTO rtable_reservation(table_id, customer_id, reserve_date, start_time, end_time)    '
+          + 'VALUES(:rtable_number, :customer_id, :reserve_date, :start_time, :end_time);';
+        qry.Params.ParamByName('rtable_number').Value := rtable_number;
+        qry.Params.ParamByName('customer_id').Value := 2;
+        qry.Params.ParamByName('start_time').Value := start_time;
+        qry.Params.ParamByName('end_time').Value := end_time;
+        qry.Params.ParamByName('reserve_date').Value := date;
+        qry.ExecSQL;
+      Finally
+        FreeAndNil(qry);
+      end;
+      Result := True;
+    except
+      Result := False;
+    end;
+  end;
+
+end;
 
 function day_of_week: string;
 begin
   case DayOfWeek(now) of
     1:
-      result := 'یکشنبه';
+      Result := 'یکشنبه';
     2:
-      result := 'دوشنبه';
+      Result := 'دوشنبه';
     3:
-      result := 'سه شنبه';
+      Result := 'سه شنبه';
     4:
-      result := 'چهارشنبه';
+      Result := 'چهارشنبه';
     5:
-      result := 'پنجشنبه';
+      Result := 'پنجشنبه';
     6:
-      result := 'جمعه';
+      Result := 'جمعه';
     7:
-      result := 'شنبه';
+      Result := 'شنبه';
   end;
 end;
 

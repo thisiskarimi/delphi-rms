@@ -9,11 +9,12 @@ uses
 
 type
   TfrmCustomerManager = class(TForm)
-    DBNavigator1: TDBNavigator;
+    DBNCustomerAddress: TDBNavigator;
     DBGrid1: TDBGrid;
     DBGrid2: TDBGrid;
-    DBNavigator2: TDBNavigator;
+    DBNCustomerPhoneNumber: TDBNavigator;
     DBGrid3: TDBGrid;
+    DBNCustomer: TDBNavigator;
   private
     { Private declarations }
   public

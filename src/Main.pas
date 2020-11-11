@@ -52,16 +52,17 @@ begin
   imgSetting.Top := GBLeftMenu.height - imgSetting.height;
 
   // for fixing width of DBGOrderItem columns
-  DBGOrderItems.Width := GBNewOrder.Width - 10;
+  DBGOrderItems.Width := GBNewOrder.Width - 20;
   DBGOrderItems.Columns[0].Width := DBGOrderItems.Width div 4 - 35;
   DBGOrderItems.Columns[1].Width := DBGOrderItems.Width div 2;
   DBGOrderItems.Columns[2].Width := DBGOrderItems.Width div 4;
 
-  while not DM.tblCustomer.Eof do
-  begin
-    DBComboBox1.Items.Add(DM.tblCustomer['full_name']);
-    DM.tblCustomer.Next;
-  end;
+//  DM.tblCustomer.First;
+//  while not DM.tblCustomer.Eof do
+//  begin
+//    DBComboBox1.Items.Add(DM.tblCustomer['full_name']);
+//    DM.tblCustomer.Next;
+//  end;
 
 
 end;

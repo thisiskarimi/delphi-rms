@@ -31,8 +31,11 @@ object DM: TDM
   object ConnectionMain: TFDConnection
     Params.Strings = (
       'Database=C:\Users\Mojtaba\Desktop\delphi-rms\db.sqlite3'
+      'SharedCache=False'
+      'LockingMode=Normal'
       'DriverID=SQLite')
     Connected = True
+    LoginPrompt = False
     Left = 40
     Top = 24
   end
@@ -49,6 +52,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tblCustomersubscription_code: TIntegerField
       DisplayWidth = 17
@@ -72,12 +76,33 @@ object DM: TDM
     end
   end
   object tblFood: TFDTable
+    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = 'food'
     TableName = 'food'
     Left = 127
     Top = 96
+    object tblFoodid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tblFoodcategory_id: TIntegerField
+      FieldName = 'category_id'
+      Origin = 'category_id'
+      Required = True
+    end
+    object tblFoodname: TWideMemoField
+      FieldName = 'name'
+      Origin = 'name'
+      BlobType = ftWideMemo
+    end
+    object tblFoodprice: TIntegerField
+      FieldName = 'price'
+      Origin = 'price'
+    end
   end
   object DSFoods: TDataSource
     DataSet = tblFood
@@ -96,8 +121,8 @@ object DM: TDM
   end
   object FDGUIxWaitCursor1: TFDGUIxWaitCursor
     Provider = 'Forms'
-    Left = 120
-    Top = 32
+    Left = 152
+    Top = 24
   end
   object tblCustomerAddress: TFDTable
     Active = True
@@ -113,6 +138,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tblCustomerAddresscustomer_id: TIntegerField
       FieldName = 'customer_id'
@@ -146,6 +172,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tblCustomerPhoneNumbercustomer_id: TIntegerField
       FieldName = 'customer_id'
@@ -160,6 +187,7 @@ object DM: TDM
     object tblCustomerPhoneNumberphone_number: TWideMemoField
       FieldName = 'phone_number'
       Origin = 'phone_number'
+      OnGetText = tblCustomerPhoneNumberphone_numberGetText
       BlobType = ftWideMemo
     end
   end
@@ -172,5 +200,159 @@ object DM: TDM
     DataSet = tblCustomerPhoneNumber
     Left = 344
     Top = 160
+  end
+  object tblOrder: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = ConnectionMain
+    UpdateOptions.UpdateTableName = '"order"'
+    TableName = '"order"'
+    Left = 464
+    Top = 96
+    object tblOrderid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tblOrdercustomer_id: TIntegerField
+      FieldName = 'customer_id'
+      Origin = 'customer_id'
+      Required = True
+    end
+    object tblOrdercreated_at: TWideMemoField
+      FieldName = 'created_at'
+      Origin = 'created_at'
+      BlobType = ftWideMemo
+    end
+    object tblOrderdelivery: TIntegerField
+      FieldName = 'delivery'
+      Origin = 'delivery'
+    end
+    object tblOrderdelivery_id: TIntegerField
+      FieldName = 'delivery_id'
+      Origin = 'delivery_id'
+    end
+    object tblOrderreservation: TIntegerField
+      FieldName = 'reservation'
+      Origin = 'reservation'
+    end
+    object tblOrderreservation_id: TIntegerField
+      FieldName = 'reservation_id'
+      Origin = 'reservation_id'
+    end
+  end
+  object DSOrder: TDataSource
+    DataSet = tblOrder
+    Left = 464
+    Top = 160
+  end
+  object tblrTableReservation: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = ConnectionMain
+    UpdateOptions.UpdateTableName = 'rtable_reservation'
+    TableName = 'rtable_reservation'
+    Left = 560
+    Top = 96
+    object tblrTableReservationid: TFDAutoIncField
+      DisplayWidth = 12
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tblrTableReservationtable_id: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'table_id'
+      Origin = 'table_id'
+      Required = True
+    end
+    object tblrTableReservationcustomer_id: TIntegerField
+      DisplayWidth = 11
+      FieldName = 'customer_id'
+      Origin = 'customer_id'
+      Required = True
+    end
+    object tblrTableReservationreserve_date: TWideMemoField
+      DisplayWidth = 13
+      FieldName = 'reserve_date'
+      Origin = 'reserve_date'
+      OnGetText = tblrTableReservationreserve_dateGetText
+      BlobType = ftWideMemo
+    end
+    object tblrTableReservationstart_time: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'start_time'
+      Origin = 'start_time'
+    end
+    object tblrTableReservationend_time: TIntegerField
+      DisplayWidth = 12
+      FieldName = 'end_time'
+      Origin = 'end_time'
+    end
+  end
+  object tblrTable: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = ConnectionMain
+    UpdateOptions.UpdateTableName = 'rtable'
+    TableName = 'rtable'
+    Left = 648
+    Top = 96
+    object tblrTableid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tblrTablenumber: TIntegerField
+      FieldName = 'number'
+      Origin = 'number'
+    end
+    object tblrTablecapacity: TIntegerField
+      FieldName = 'capacity'
+      Origin = 'capacity'
+    end
+  end
+  object DSrTableReservation: TDataSource
+    DataSet = tblrTableReservation
+    Left = 560
+    Top = 160
+  end
+  object DSrTable: TDataSource
+    DataSet = tblrTable
+    Left = 648
+    Top = 160
+  end
+  object tblFoodCategory: TFDTable
+    IndexFieldNames = 'id'
+    Connection = ConnectionMain
+    UpdateOptions.UpdateTableName = 'food_category'
+    TableName = 'food_category'
+    Left = 128
+    Top = 320
+    object tblFoodCategoryid: TFDAutoIncField
+      DisplayWidth = 12
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tblFoodCategoryname: TWideMemoField
+      DisplayWidth = 66
+      FieldName = 'name'
+      Origin = 'name'
+      OnGetText = tblFoodCategorynameGetText
+      BlobType = ftWideMemo
+    end
+  end
+  object DSFoodCategory: TDataSource
+    DataSet = tblFoodCategory
+    Left = 128
+    Top = 384
+  end
+  object FDqry: TFDQuery
+    Connection = ConnectionMain
+    Left = 376
+    Top = 272
   end
 end
