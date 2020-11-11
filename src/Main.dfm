@@ -1934,8 +1934,6 @@ object frmMain: TfrmMain
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
-    ExplicitLeft = 327
-    ExplicitTop = -6
     object DBGOrderItems: TDBGrid
       Left = 8
       Top = 320
@@ -1971,24 +1969,6 @@ object frmMain: TfrmMain
           Visible = True
         end>
     end
-    object DBComboBox1: TDBComboBox
-      Left = 112
-      Top = 96
-      Width = 267
-      Height = 21
-      DataField = 'id'
-      DataSource = DM.DSCustomer
-      DropDownCount = 20
-      Items.Strings = (
-        '1'
-        '2'
-        '123'
-        '123'
-        '123'
-        '123'
-        '')
-      TabOrder = 1
-    end
     object DBLookupComboBox1: TDBLookupComboBox
       Left = 112
       Top = 152
@@ -1996,10 +1976,11 @@ object frmMain: TfrmMain
       Height = 21
       DataField = 'customer_id'
       DataSource = DM.DSOrder
+      Enabled = False
       KeyField = 'id'
       ListField = 'full_name'
       ListSource = DM.DSCustomer
-      TabOrder = 2
+      TabOrder = 1
     end
   end
   object StatusBarFooter: TStatusBar

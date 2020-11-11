@@ -19,7 +19,6 @@ type
     DBGOrderItems: TDBGrid;
     StatusBarFooter: TStatusBar;
     TimerClock: TTimer;
-    DBComboBox1: TDBComboBox;
     DBLookupComboBox1: TDBLookupComboBox;
     procedure status_bar_panels_divider;
     procedure FormCreate(Sender: TObject);

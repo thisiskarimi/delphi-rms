@@ -111,6 +111,7 @@ object DM: TDM
   end
   object DSCustomer: TDataSource
     DataSet = tblCustomer
+    OnDataChange = DSCustomerDataChange
     Left = 40
     Top = 152
   end
@@ -192,7 +193,7 @@ object DM: TDM
     end
   end
   object DSCustomerAddress: TDataSource
-    DataSet = tblCustomerAddress
+    DataSet = FDQryCustomerAddress
     Left = 208
     Top = 160
   end
@@ -202,7 +203,6 @@ object DM: TDM
     Top = 160
   end
   object tblOrder: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = '"order"'
@@ -260,6 +260,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tblrTableReservationtable_id: TIntegerField
       DisplayWidth = 12
@@ -303,6 +304,7 @@ object DM: TDM
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object tblrTablenumber: TIntegerField
       FieldName = 'number'
@@ -350,9 +352,20 @@ object DM: TDM
     Left = 128
     Top = 384
   end
-  object FDqry: TFDQuery
+  object FDQryCustomerAddress: TFDQuery
     Connection = ConnectionMain
-    Left = 376
-    Top = 272
+    FormatOptions.AssignedValues = [fvMaxStringSize]
+    FormatOptions.MaxStringSize = 3276700
+    SQL.Strings = (
+      
+        'select title,full_text from address where customer_id = :custome' +
+        'r_id;')
+    Left = 232
+    Top = 240
+    ParamData = <
+      item
+        Name = 'CUSTOMER_ID'
+        ParamType = ptInput
+      end>
   end
 end

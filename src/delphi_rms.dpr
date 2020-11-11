@@ -16,8 +16,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmSettings, frmSettings);
-  Application.CreateForm(TfrmCustomerManager, frmCustomerManager);
-  Application.CreateForm(TfrmTableReservation, frmTableReservation);
   Application.Run;
 end.

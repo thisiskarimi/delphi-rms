@@ -70,7 +70,7 @@ type
     tblrTableReservationreserve_date: TWideMemoField;
     tblrTableReservationstart_time: TIntegerField;
     tblrTableReservationend_time: TIntegerField;
-    FDqry: TFDQuery;
+    FDQryCustomerAddress: TFDQuery;
     procedure tblCustomerAddressfull_textGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
     procedure tblCustomerAddresstitleGetText(Sender: TField; var Text: string;
@@ -85,6 +85,7 @@ type
       var Text: string; DisplayText: Boolean);
     procedure tblCustomerPhoneNumberphone_numberGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
+    procedure DSCustomerDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -99,6 +100,19 @@ implementation
 { %CLASSGROUP 'Vcl.Controls.TControl' }
 
 {$R *.dfm}
+
+uses
+  Vcl.Dialogs;
+
+procedure TDM.DSCustomerDataChange(Sender: TObject; Field: TField);
+begin
+
+  FDQryCustomerAddress.Close;
+  FDQryCustomerAddress.Params.ParamByName('customer_id').Value := DSCustomer.DataSet.FieldByName('id').Value;
+  FDQryCustomerAddress.Open;
+
+
+end;
 
 procedure TDM.tblCustomerAddressfull_textGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
