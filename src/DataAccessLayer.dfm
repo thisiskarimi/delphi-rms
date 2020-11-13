@@ -1,13 +1,9 @@
 object DM: TDM
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Height = 523
   Width = 698
   object CDSOrderItem: TClientDataSet
-    PersistDataPacket.Data = {
-      4C0000009619E0BD0100000018000000030000000000030000004C00086F7264
-      65725F6964040001000000000007666F6F645F69640400010000000000087175
-      616E7469747904000100000000000000}
-    Active = True
     Aggregates = <>
     Params = <>
     Left = 40
@@ -34,13 +30,11 @@ object DM: TDM
       'SharedCache=False'
       'LockingMode=Normal'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
     Left = 40
     Top = 24
   end
   object tblCustomer: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = 'customer'
@@ -76,7 +70,6 @@ object DM: TDM
     end
   end
   object tblFood: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = 'food'
@@ -125,80 +118,13 @@ object DM: TDM
     Left = 152
     Top = 24
   end
-  object tblCustomerAddress: TFDTable
-    Active = True
-    IndexFieldNames = 'customer_id'
-    MasterSource = DSCustomer
-    MasterFields = 'id'
-    Connection = ConnectionMain
-    UpdateOptions.UpdateTableName = 'address'
-    TableName = 'address'
-    Left = 216
-    Top = 96
-    object tblCustomerAddressid: TFDAutoIncField
-      FieldName = 'id'
-      Origin = 'id'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object tblCustomerAddresscustomer_id: TIntegerField
-      FieldName = 'customer_id'
-      Origin = 'customer_id'
-      Required = True
-    end
-    object tblCustomerAddresstitle: TWideMemoField
-      FieldName = 'title'
-      Origin = 'title'
-      OnGetText = tblCustomerAddresstitleGetText
-      BlobType = ftWideMemo
-    end
-    object tblCustomerAddressfull_text: TWideMemoField
-      FieldName = 'full_text'
-      Origin = 'full_text'
-      OnGetText = tblCustomerAddressfull_textGetText
-      BlobType = ftWideMemo
-    end
-  end
-  object tblCustomerPhoneNumber: TFDTable
-    Active = True
-    IndexFieldNames = 'customer_id'
-    MasterSource = DSCustomer
-    MasterFields = 'id'
-    Connection = ConnectionMain
-    UpdateOptions.UpdateTableName = 'phone_number'
-    TableName = 'phone_number'
-    Left = 344
-    Top = 96
-    object tblCustomerPhoneNumberid: TFDAutoIncField
-      FieldName = 'id'
-      Origin = 'id'
-      ProviderFlags = [pfInWhere, pfInKey]
-      ReadOnly = True
-    end
-    object tblCustomerPhoneNumbercustomer_id: TIntegerField
-      FieldName = 'customer_id'
-      Origin = 'customer_id'
-      Required = True
-    end
-    object tblCustomerPhoneNumbertitle: TWideMemoField
-      FieldName = 'title'
-      Origin = 'title'
-      BlobType = ftWideMemo
-    end
-    object tblCustomerPhoneNumberphone_number: TWideMemoField
-      FieldName = 'phone_number'
-      Origin = 'phone_number'
-      OnGetText = tblCustomerPhoneNumberphone_numberGetText
-      BlobType = ftWideMemo
-    end
-  end
   object DSCustomerAddress: TDataSource
     DataSet = FDQryCustomerAddress
     Left = 208
     Top = 160
   end
   object DSCustomerPhoneNumber: TDataSource
-    DataSet = tblCustomerPhoneNumber
+    DataSet = FDQryCustomerAddress
     Left = 344
     Top = 160
   end
@@ -248,7 +174,6 @@ object DM: TDM
     Top = 160
   end
   object tblrTableReservation: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = 'rtable_reservation'
@@ -293,7 +218,6 @@ object DM: TDM
     end
   end
   object tblrTable: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = ConnectionMain
     UpdateOptions.UpdateTableName = 'rtable'
