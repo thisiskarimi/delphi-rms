@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 233
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
-  Caption = 'frmMain'
+  Caption = #1605#1583#1740#1585#1740#1578' '#1585#1587#1578#1608#1585#1575#1606
   ClientHeight = 670
   ClientWidth = 737
   Color = clBtnFace
@@ -24,12 +24,10 @@ object frmMain: TfrmMain
     Width = 321
     Height = 637
     Align = alLeft
-    Color = clWhite
+    Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    ExplicitTop = -295
-    ExplicitHeight = 576
     object imgAddCustomer: TImage
       Left = 24
       Top = 32
@@ -1928,17 +1926,16 @@ object frmMain: TfrmMain
     Width = 402
     Height = 637
     Align = alRight
-    Caption = #1587#1601#1575#1585#1588' '#1580#1583#1740#1583
+    Color = clBtnHighlight
     Padding.Left = 20
     Padding.Top = 20
     Padding.Right = 20
     Padding.Bottom = 20
+    ParentBackground = False
+    ParentColor = False
     TabOrder = 1
-    ExplicitLeft = 16
-    ExplicitTop = -295
-    ExplicitHeight = 576
     object DBGOrderItems: TDBGrid
-      Left = -7
+      Left = 8
       Top = 320
       Width = 386
       Height = 120
@@ -1972,24 +1969,6 @@ object frmMain: TfrmMain
           Visible = True
         end>
     end
-    object DBComboBox1: TDBComboBox
-      Left = 112
-      Top = 96
-      Width = 267
-      Height = 21
-      DataField = 'id'
-      DataSource = DM.DSCustomer
-      DropDownCount = 20
-      Items.Strings = (
-        '1'
-        '2'
-        '123'
-        '123'
-        '123'
-        '123'
-        '')
-      TabOrder = 1
-    end
     object DBLookupComboBox1: TDBLookupComboBox
       Left = 112
       Top = 152
@@ -1997,10 +1976,11 @@ object frmMain: TfrmMain
       Height = 21
       DataField = 'customer_id'
       DataSource = DM.DSOrder
+      Enabled = False
       KeyField = 'id'
       ListField = 'full_name'
       ListSource = DM.DSCustomer
-      TabOrder = 2
+      TabOrder = 1
     end
   end
   object StatusBarFooter: TStatusBar
@@ -2026,13 +2006,10 @@ object frmMain: TfrmMain
         Alignment = taCenter
         Width = 50
       end>
-    ExplicitLeft = -304
-    ExplicitTop = 248
-    ExplicitWidth = 722
   end
   object TimerClock: TTimer
     OnTimer = TimerClockTimer
-    Left = 328
-    Top = 253
+    Left = 336
+    Top = 549
   end
 end

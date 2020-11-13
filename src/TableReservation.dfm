@@ -5,8 +5,8 @@ object frmTableReservation: TfrmTableReservation
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1585#1586#1585#1608' '#1605#1740#1586
-  ClientHeight = 271
-  ClientWidth = 444
+  ClientHeight = 421
+  ClientWidth = 594
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,71 +16,226 @@ object frmTableReservation: TfrmTableReservation
   OldCreateOrder = False
   ParentBiDiMode = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object DBLookupComboBox1: TDBLookupComboBox
-    Left = 291
+  object PageControl1: TPageControl
+    Left = 0
     Top = 8
-    Width = 145
-    Height = 21
-    DataField = 'customer_id'
-    DataSource = DM.DSrTableReservation
-    DropDownRows = 50
-    KeyField = 'id'
-    ListField = 'full_name'
-    ListSource = DM.DSCustomer
+    Width = 593
+    Height = 409
+    ActivePage = tsReserve
     TabOrder = 0
-  end
-  object DBLookupListBox1: TDBLookupListBox
-    Left = 8
-    Top = 8
-    Width = 121
-    Height = 251
-    DataField = 'table_id'
-    DataSource = DM.DSrTableReservation
-    KeyField = 'id'
-    ListField = 'number'
-    ListSource = DM.DSrTable
-    TabOrder = 1
-  end
-  object DPDaterTableReservation: TDateTimePicker
-    Left = 250
-    Top = 48
-    Width = 186
-    Height = 21
-    Date = 44141.627928726860000000
-    Time = 44141.627928726860000000
-    TabOrder = 2
-  end
-  object TPStartTimerTableReservation: TDateTimePicker
-    Left = 250
-    Top = 112
-    Width = 186
-    Height = 21
-    BiDiMode = bdLeftToRight
-    Date = 44141.628450104170000000
-    Time = 44141.628450104170000000
-    Kind = dtkTime
-    ParentBiDiMode = False
-    TabOrder = 3
-  end
-  object TPEndTimerTableReservation: TDateTimePicker
-    Left = 250
-    Top = 168
-    Width = 186
-    Height = 21
-    Date = 44141.632612604170000000
-    Time = 44141.632612604170000000
-    Kind = dtkTime
-    TabOrder = 4
-  end
-  object btnSubmitrTableReservation: TButton
-    Left = 286
-    Top = 213
-    Width = 150
-    Height = 50
-    Caption = #1575#1605#1705#1575#1606' '#1587#1606#1580#1740' '#1585#1586#1585#1608
-    TabOrder = 5
-    OnClick = btnSubmitrTableReservationClick
+    object tsReserve: TTabSheet
+      Caption = #1585#1586#1585#1608
+      ExplicitLeft = 8
+      object Label1: TLabel
+        Left = 31
+        Top = 22
+        Width = 83
+        Height = 32
+        Caption = #1575#1606#1578#1582#1575#1576' '#1605#1740#1586
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -20
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblReservationDate: TLabel
+        Left = 511
+        Top = 82
+        Width = 40
+        Height = 32
+        Caption = #1578#1575#1585#1740#1582
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -20
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblReservationEndTime: TLabel
+        Left = 165
+        Top = 151
+        Width = 29
+        Height = 25
+        Caption = #1662#1575#1740#1575#1606
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblReservationStartTime: TLabel
+        Left = 295
+        Top = 151
+        Width = 36
+        Height = 25
+        Caption = #1588#1585#1608#1593
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblReservationTime: TLabel
+        Left = 511
+        Top = 139
+        Width = 48
+        Height = 32
+        Caption = #1587#1575#1593#1578
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -20
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblrTableReservationCustomer: TLabel
+        Left = 511
+        Top = 33
+        Width = 55
+        Height = 32
+        Caption = #1605#1588#1578#1585#1740
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -20
+        Font.Name = 'Vazir'
+        Font.Style = []
+        ParentFont = False
+      end
+      object SpeedButton1: TSpeedButton
+        Left = 139
+        Top = 328
+        Width = 55
+        Height = 31
+        Caption = #1578#1575#1740#1740#1583
+        Enabled = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        OnClick = SpeedButton1Click
+      end
+      object btnSubmitrTableReservation: TButton
+        Left = 139
+        Top = 260
+        Width = 223
+        Height = 34
+        Caption = #1575#1605#1705#1575#1606' '#1587#1606#1580#1740' '#1585#1586#1585#1608
+        TabOrder = 0
+        OnClick = btnSubmitrTableReservationClick
+      end
+      object DBLCBrTableReservationCustomer: TDBLookupComboBox
+        Left = 139
+        Top = 33
+        Width = 223
+        Height = 27
+        DataField = 'customer_id'
+        DataSource = DM.DSrTableReservation
+        DropDownRows = 50
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        KeyField = 'id'
+        ListField = 'full_name'
+        ListSource = DM.DSCustomer
+        ParentFont = False
+        TabOrder = 1
+      end
+      object DBLLBrTable: TDBLookupListBox
+        Left = 3
+        Top = 60
+        Width = 121
+        Height = 303
+        DataField = 'table_id'
+        DataSource = DM.DSrTableReservation
+        KeyField = 'id'
+        ListField = 'number'
+        ListSource = DM.DSrTable
+        TabOrder = 2
+        OnClick = DBLLBrTableClick
+      end
+      object DPDaterTableReservation: TDateTimePicker
+        Left = 139
+        Top = 82
+        Width = 223
+        Height = 41
+        Date = 44141.627928726860000000
+        Time = 44141.627928726860000000
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -27
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        OnChange = DPDaterTableReservationChange
+      end
+      object TPEndTimerTableReservation: TDateTimePicker
+        Left = 139
+        Top = 182
+        Width = 97
+        Height = 41
+        Date = 44141.965937500000000000
+        Format = 'hh'
+        Time = 44141.965937500000000000
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -27
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Kind = dtkTime
+        ParentFont = False
+        TabOrder = 4
+        OnChange = TPEndTimerTableReservationChange
+      end
+      object TPStartTimerTableReservation: TDateTimePicker
+        Left = 265
+        Top = 182
+        Width = 97
+        Height = 41
+        BiDiMode = bdLeftToRight
+        Date = 44141.628450104170000000
+        Format = 'hh'
+        Time = 44141.628450104170000000
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -27
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        Kind = dtkTime
+        ParentBiDiMode = False
+        ParentFont = False
+        TabOrder = 5
+        OnChange = TPStartTimerTableReservationChange
+      end
+    end
+    object tsReserved: TTabSheet
+      Caption = #1604#1740#1587#1578
+      ImageIndex = 1
+      ExplicitWidth = 433
+      ExplicitHeight = 237
+      object DBGrTableReserved: TDBGrid
+        Left = 3
+        Top = 3
+        Width = 579
+        Height = 366
+        DataSource = DM.DSrTableReservation
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+    end
   end
 end

@@ -40,6 +40,37 @@ type
     tblCustomerPhoneNumbercustomer_id: TIntegerField;
     tblCustomerPhoneNumbertitle: TWideMemoField;
     tblCustomerPhoneNumberphone_number: TWideMemoField;
+    tblOrder: TFDTable;
+    tblOrderid: TFDAutoIncField;
+    tblOrdercustomer_id: TIntegerField;
+    tblOrdercreated_at: TWideMemoField;
+    tblOrderdelivery: TIntegerField;
+    tblOrderdelivery_id: TIntegerField;
+    tblOrderreservation: TIntegerField;
+    tblOrderreservation_id: TIntegerField;
+    DSOrder: TDataSource;
+    tblrTableReservation: TFDTable;
+    tblrTable: TFDTable;
+    DSrTableReservation: TDataSource;
+    DSrTable: TDataSource;
+    tblFoodid: TFDAutoIncField;
+    tblFoodcategory_id: TIntegerField;
+    tblFoodname: TWideMemoField;
+    tblFoodprice: TIntegerField;
+    tblFoodCategory: TFDTable;
+    tblFoodCategoryid: TFDAutoIncField;
+    tblFoodCategoryname: TWideMemoField;
+    DSFoodCategory: TDataSource;
+    tblrTableid: TFDAutoIncField;
+    tblrTablenumber: TIntegerField;
+    tblrTablecapacity: TIntegerField;
+    tblrTableReservationid: TFDAutoIncField;
+    tblrTableReservationtable_id: TIntegerField;
+    tblrTableReservationcustomer_id: TIntegerField;
+    tblrTableReservationreserve_date: TWideMemoField;
+    tblrTableReservationstart_time: TIntegerField;
+    tblrTableReservationend_time: TIntegerField;
+    FDQryCustomerAddress: TFDQuery;
     procedure tblCustomerAddressfull_textGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
     procedure tblCustomerAddresstitleGetText(Sender: TField; var Text: string;
@@ -48,6 +79,13 @@ type
       DisplayText: Boolean);
     procedure tblCustomercreated_atGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure tblFoodCategorynameGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
+    procedure tblrTableReservationreserve_dateGetText(Sender: TField;
+      var Text: string; DisplayText: Boolean);
+    procedure tblCustomerPhoneNumberphone_numberGetText(Sender: TField;
+      var Text: string; DisplayText: Boolean);
+    procedure DSCustomerDataChange(Sender: TObject; Field: TField);
   private
     { Private declarations }
   public
@@ -62,6 +100,19 @@ implementation
 { %CLASSGROUP 'Vcl.Controls.TControl' }
 
 {$R *.dfm}
+
+uses
+  Vcl.Dialogs;
+
+procedure TDM.DSCustomerDataChange(Sender: TObject; Field: TField);
+begin
+
+  FDQryCustomerAddress.Close;
+  FDQryCustomerAddress.Params.ParamByName('customer_id').Value := DSCustomer.DataSet.FieldByName('id').Value;
+  FDQryCustomerAddress.Open;
+
+
+end;
 
 procedure TDM.tblCustomerAddressfull_textGetText(Sender: TField;
   var Text: string; DisplayText: Boolean);
@@ -83,6 +134,24 @@ end;
 
 procedure TDM.tblCustomerfull_nameGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
+begin
+  Text := Sender.AsString;
+end;
+
+procedure TDM.tblCustomerPhoneNumberphone_numberGetText(Sender: TField;
+  var Text: string; DisplayText: Boolean);
+begin
+  Text := Sender.AsString;
+end;
+
+procedure TDM.tblFoodCategorynameGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  Text := Sender.AsString;
+end;
+
+procedure TDM.tblrTableReservationreserve_dateGetText(Sender: TField;
+  var Text: string; DisplayText: Boolean);
 begin
   Text := Sender.AsString;
 end;
