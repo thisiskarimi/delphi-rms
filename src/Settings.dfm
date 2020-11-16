@@ -23,7 +23,7 @@
     Top = 0
     Width = 600
     Height = 450
-    ActivePage = میزها
+    ActivePage = غذاها
     BiDiMode = bdRightToLeft
     MultiLine = True
     ParentBiDiMode = False
@@ -46,16 +46,19 @@
           item
             Expanded = False
             FieldName = 'category_id'
+            Width = 107
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'name'
+            Width = 154
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'price'
+            Width = 213
             Visible = True
           end>
       end

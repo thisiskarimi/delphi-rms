@@ -4,12 +4,12 @@ object frmMain: TfrmMain
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1605#1583#1740#1585#1740#1578' '#1585#1587#1578#1608#1585#1575#1606
-  ClientHeight = 670
-  ClientWidth = 737
+  ClientHeight = 629
+  ClientWidth = 778
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -10
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
@@ -17,22 +17,22 @@ object frmMain: TfrmMain
   WindowState = wsMaximized
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 12
   object GBLeftMenu: TGroupBox
     Left = 0
     Top = 0
-    Width = 321
-    Height = 637
+    Width = 301
+    Height = 598
     Align = alLeft
     Color = clMoneyGreen
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
     object imgAddCustomer: TImage
-      Left = 24
-      Top = 32
-      Width = 100
-      Height = 100
+      Left = 23
+      Top = 30
+      Width = 93
+      Height = 94
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000002000000
         02000806000000F478D4FA0000000473424954080808087C0864880000000970
@@ -626,10 +626,10 @@ object frmMain: TfrmMain
       OnClick = imgAddCustomerClick
     end
     object imgTableReservation: TImage
-      Left = 24
-      Top = 152
-      Width = 100
-      Height = 100
+      Left = 23
+      Top = 143
+      Width = 93
+      Height = 93
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000002000000
         02000806000000F478D4FA0000000473424954080808087C0864880000000970
@@ -1331,10 +1331,10 @@ object frmMain: TfrmMain
       OnClick = imgTableReservationClick
     end
     object imgSetting: TImage
-      Left = 24
-      Top = 452
-      Width = 100
-      Height = 100
+      Left = 23
+      Top = 424
+      Width = 93
+      Height = 94
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000002000000
         02000806000000F478D4FA0000000473424954080808087C0864880000000970
@@ -1921,29 +1921,29 @@ object frmMain: TfrmMain
     end
   end
   object GBNewOrder: TGroupBox
-    Left = 335
+    Left = 400
     Top = 0
-    Width = 402
-    Height = 637
+    Width = 378
+    Height = 598
     Align = alRight
     Color = clBtnHighlight
-    Padding.Left = 20
-    Padding.Top = 20
-    Padding.Right = 20
-    Padding.Bottom = 20
+    Padding.Left = 19
+    Padding.Top = 19
+    Padding.Right = 19
+    Padding.Bottom = 19
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
     object DBGOrderItems: TDBGrid
       Left = 8
-      Top = 320
-      Width = 386
-      Height = 120
+      Top = 300
+      Width = 362
+      Height = 113
       DataSource = DM.DSOrderItem
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
-      TitleFont.Height = -11
+      TitleFont.Height = -10
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
       Columns = <
@@ -1970,10 +1970,10 @@ object frmMain: TfrmMain
         end>
     end
     object DBLookupComboBox1: TDBLookupComboBox
-      Left = 112
-      Top = 152
-      Width = 267
-      Height = 21
+      Left = 105
+      Top = 143
+      Width = 250
+      Height = 20
       DataField = 'customer_id'
       DataSource = DM.DSOrder
       Enabled = False
@@ -1985,9 +1985,9 @@ object frmMain: TfrmMain
   end
   object StatusBarFooter: TStatusBar
     Left = 0
-    Top = 637
-    Width = 737
-    Height = 33
+    Top = 598
+    Width = 778
+    Height = 31
     Color = clRed
     Panels = <
       item
@@ -2006,6 +2006,7 @@ object frmMain: TfrmMain
         Alignment = taCenter
         Width = 50
       end>
+    OnDrawPanel = StatusBarFooterDrawPanel
   end
   object TimerClock: TTimer
     OnTimer = TimerClockTimer

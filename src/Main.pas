@@ -3,7 +3,8 @@
 interface
 
 uses
-  DataAccessLayer, TableReservation, Settings, CustomerManager, functions, Winapi.Windows,
+  DataAccessLayer, TableReservation, Settings, CustomerManager, functions,
+  Winapi.Windows,
   Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.ExtCtrls, Vcl.ComCtrls,
@@ -26,6 +27,8 @@ type
     procedure TimerClockTimer(Sender: TObject);
     procedure imgSettingClick(Sender: TObject);
     procedure imgTableReservationClick(Sender: TObject);
+    procedure StatusBarFooterDrawPanel(StatusBar: TStatusBar;
+      Panel: TStatusPanel; const Rect: TRect);
   private
     { Private declarations }
   public
@@ -42,6 +45,7 @@ implementation
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
   i: integer;
+  RectForText: TRect;
 begin
   status_bar_panels_divider;
   StatusBarFooter.Panels[1].Text := 'امروز: ' + day_of_week + ' ' +
@@ -56,13 +60,13 @@ begin
   DBGOrderItems.Columns[1].Width := DBGOrderItems.Width div 2;
   DBGOrderItems.Columns[2].Width := DBGOrderItems.Width div 4;
 
-//  DM.tblCustomer.First;
-//  while not DM.tblCustomer.Eof do
-//  begin
-//    DBComboBox1.Items.Add(DM.tblCustomer['full_name']);
-//    DM.tblCustomer.Next;
-//  end;
 
+  // DM.tblCustomer.First;
+  // while not DM.tblCustomer.Eof do
+  // begin
+  // DBComboBox1.Items.Add(DM.tblCustomer['full_name']);
+  // DM.tblCustomer.Next;
+  // end;
 
 end;
 
@@ -85,6 +89,12 @@ begin
   Application.CreateForm(TfrmTableReservation, frmTableReservation);
   frmTableReservation.ShowModal;
   frmTableReservation.Destroy;
+end;
+
+procedure TfrmMain.StatusBarFooterDrawPanel(StatusBar: TStatusBar;
+  Panel: TStatusPanel; const Rect: TRect);
+begin
+  StatusBar.Canvas.font.Color := clWhite;
 end;
 
 procedure TfrmMain.status_bar_panels_divider;

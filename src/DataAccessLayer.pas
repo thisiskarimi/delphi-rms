@@ -98,12 +98,19 @@ uses
 procedure TDM.DataModuleCreate(Sender: TObject);
 var
   I: Integer;
+  tmp_db_dir: string;
 begin
-  ConnectionMain.Params.Database := 'D:\Code Repository\delphi-rms\db.sqlite3';
+  tmp_db_dir := GetCurrentDir;
+  SetLength(tmp_db_dir, LENGTH(tmp_db_dir) - 15);
+  tmp_db_dir := tmp_db_dir + 'db.sqlite3';
+  ConnectionMain.Params.Database := tmp_db_dir;
+
   ConnectionMain.Connected := True;
-  for i := 0 to ComponentCount - 1 do begin
-    if Components[i] is TFDTable then begin
-      TFDTable(Components[i]).Active := True;
+  for I := 0 to ComponentCount - 1 do
+  begin
+    if Components[I] is TFDTable then
+    begin
+      TFDTable(Components[I]).Active := True;
     end;
   end;
 end;
