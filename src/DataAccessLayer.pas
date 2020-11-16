@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet,
   FireDAC.Comp.Client, Data.DB, Datasnap.DBClient, FireDAC.VCLUI.Wait,
-  FireDAC.Comp.UI;
+  FireDAC.Comp.UI, Winapi.Windows;
 
 type
   TDM = class(TDataModule)
@@ -28,18 +28,8 @@ type
     tblCustomersubscription_code: TIntegerField;
     tblCustomerfull_name: TWideMemoField;
     tblCustomercreated_at: TWideMemoField;
-    tblCustomerAddress: TFDTable;
-    tblCustomerPhoneNumber: TFDTable;
     DSCustomerAddress: TDataSource;
-    tblCustomerAddressid: TFDAutoIncField;
-    tblCustomerAddresscustomer_id: TIntegerField;
-    tblCustomerAddresstitle: TWideMemoField;
-    tblCustomerAddressfull_text: TWideMemoField;
     DSCustomerPhoneNumber: TDataSource;
-    tblCustomerPhoneNumberid: TFDAutoIncField;
-    tblCustomerPhoneNumbercustomer_id: TIntegerField;
-    tblCustomerPhoneNumbertitle: TWideMemoField;
-    tblCustomerPhoneNumberphone_number: TWideMemoField;
     tblOrder: TFDTable;
     tblOrderid: TFDAutoIncField;
     tblOrdercustomer_id: TIntegerField;
@@ -86,6 +76,7 @@ type
     procedure tblCustomerPhoneNumberphone_numberGetText(Sender: TField;
       var Text: string; DisplayText: Boolean);
     procedure DSCustomerDataChange(Sender: TObject; Field: TField);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -104,14 +95,32 @@ implementation
 uses
   Vcl.Dialogs;
 
+procedure TDM.DataModuleCreate(Sender: TObject);
+var
+  I: Integer;
+  tmp_db_dir: string;
+begin
+  tmp_db_dir := GetCurrentDir;
+  SetLength(tmp_db_dir, LENGTH(tmp_db_dir) - 15);
+  tmp_db_dir := tmp_db_dir + 'db.sqlite3';
+  ConnectionMain.Params.Database := tmp_db_dir;
+
+  ConnectionMain.Connected := True;
+  for I := 0 to ComponentCount - 1 do
+  begin
+    if Components[I] is TFDTable then
+    begin
+      TFDTable(Components[I]).Active := True;
+    end;
+  end;
+end;
+
 procedure TDM.DSCustomerDataChange(Sender: TObject; Field: TField);
 begin
-
   FDQryCustomerAddress.Close;
-  FDQryCustomerAddress.Params.ParamByName('customer_id').Value := DSCustomer.DataSet.FieldByName('id').Value;
+  FDQryCustomerAddress.Params.ParamByName('customer_id').Value :=
+    DSCustomer.DataSet.FieldByName('id').Value;
   FDQryCustomerAddress.Open;
-
-
 end;
 
 procedure TDM.tblCustomerAddressfull_textGetText(Sender: TField;

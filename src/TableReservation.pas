@@ -7,35 +7,36 @@ uses
   System.SysUtils,
   System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Vcl.ComCtrls, Vcl.StdCtrls,
-  Vcl.Buttons, CommCtrl, Data.DB, Vcl.Grids, Vcl.DBGrids;
+  Vcl.Buttons, CommCtrl, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.Imaging.jpeg,
+  Vcl.ExtCtrls;
 
 type
   TfrmTableReservation = class(TForm)
-    DBLCBrTableReservationCustomer: TDBLookupComboBox;
-    DBLLBrTable: TDBLookupListBox;
-    DPDaterTableReservation: TDateTimePicker;
-    TPStartTimerTableReservation: TDateTimePicker;
-    TPEndTimerTableReservation: TDateTimePicker;
-    btnSubmitrTableReservation: TButton;
-    lblrTableReservationCustomer: TLabel;
-    lblReservationTime: TLabel;
-    SpeedButton1: TSpeedButton;
-    lblReservationDate: TLabel;
-    lblReservationStartTime: TLabel;
-    lblReservationEndTime: TLabel;
-    Label1: TLabel;
+    dblcbRC: TDBLookupComboBox;
+    dblbRT: TDBLookupListBox;
+    dpRD: TDateTimePicker;
+    tpRST: TDateTimePicker;
+    tpRET: TDateTimePicker;
+    btnTRPossibility: TButton;
+    lblRC: TLabel;
+    lblRTi: TLabel;
+    lblRD: TLabel;
+    lblRST: TLabel;
+    lblRET: TLabel;
+    lblRT: TLabel;
     PageControl1: TPageControl;
     tsReserve: TTabSheet;
     tsReserved: TTabSheet;
     DBGrTableReserved: TDBGrid;
-    procedure btnSubmitrTableReservationClick(Sender: TObject);
+    sbtnRTSubmit: TSpeedButton;
+    procedure btnTRPossibilityClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
-    procedure btnSubmitReserveDisable;
-    procedure DPDaterTableReservationChange(Sender: TObject);
-    procedure TPEndTimerTableReservationChange(Sender: TObject);
-    procedure TPStartTimerTableReservationChange(Sender: TObject);
-    procedure DBLLBrTableClick(Sender: TObject);
+    procedure sbtnRTSubmitClick(Sender: TObject);
+    procedure sbtnRTSubmitDisable(Sender: TObject);
+//    procedure dpRDChange(Sender: TObject);
+//    procedure tpRETChange(Sender: TObject);
+//    procedure tpRSTChange(Sender: TObject);
+//    procedure dblbRTClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,72 +50,72 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmTableReservation.btnSubmitReserveDisable;
+procedure TfrmTableReservation.sbtnRTSubmitDisable(Sender: TObject);
 begin
-  SpeedButton1.Enabled := False;
-end;
-
-procedure TfrmTableReservation.btnSubmitrTableReservationClick(Sender: TObject);
-var
-  i: integer;
-begin
-  i := MinutesBetween(TPEndTimerTableReservation.Time,
-    TPStartTimerTableReservation.Time);
-  if TimeToStr(TPStartTimerTableReservation.Time) >
-    TimeToStr(TPEndTimerTableReservation.Time) then
-    ShowMessage('زمان شروع باید قبل تر باشد');
-  if i < 60 then
-    ShowMessage('حداقل زمان رزرو 30 دقیقه میباشد');
-
-  if not IsReserveAbleRTable(StrToInt(DBLLBrTable.SelectedItem),
-    StrToInt(FormatDateTime('hh', TPStartTimerTableReservation.Time)),
-    StrToInt(FormatDateTime('hh', TPEndTimerTableReservation.Time)),
-    DateToStr(DPDaterTableReservation.Date)) then
-    ShowMessage('nemishe')
-  else
-    SpeedButton1.Enabled := True;
-end;
-
-procedure TfrmTableReservation.DBLLBrTableClick(Sender: TObject);
-begin
-btnSubmitReserveDisable;
-end;
-
-procedure TfrmTableReservation.DPDaterTableReservationChange(Sender: TObject);
-begin
-  btnSubmitReserveDisable;
+  sbtnRTSubmit.Enabled := False;
 end;
 
 procedure TfrmTableReservation.FormShow(Sender: TObject);
 begin
-  TPStartTimerTableReservation.Time := TimeOf(now);
-  TPEndTimerTableReservation.Time := IncHour(TimeOf(now));
+  tpRST.Time := TimeOf(now);
+  tpRET.Time := IncHour(TimeOf(now));
+  dpRD.Date := Now;
 end;
 
-procedure TfrmTableReservation.SpeedButton1Click(Sender: TObject);
+procedure TfrmTableReservation.btnTRPossibilityClick(Sender: TObject);
+var
+  i: integer;
 begin
-  if ReserverTable(StrToInt(DBLLBrTable.SelectedItem), 2,
-    StrToInt(FormatDateTime('hh', TPStartTimerTableReservation.Time)),
-    StrToInt(FormatDateTime('hh', TPEndTimerTableReservation.Time)),
-    DateToStr(DPDaterTableReservation.Date)) then
+  i := MinutesBetween(tpRET.Time, tpRST.Time);
+  if TimeToStr(tpRST.Time) > TimeToStr(tpRET.Time) then
+    ShowMessage('زمان شروع باید قبل تر باشد');
+  if i < 60 then
+    ShowMessage('حداقل زمان رزرو 30 دقیقه میباشد');
+
+  if not IsReserveAbleRTable(StrToInt(dblbRT.SelectedItem),
+    StrToInt(FormatDateTime('hh', tpRST.Time)),
+    StrToInt(FormatDateTime('hh', tpRET.Time)), DateToStr(dpRD.Date)) then
+    ShowMessage('رزروی با اطلاعات مشابه وجود دارد')
+  else
+    sbtnRTSubmit.Enabled := True;
+end;
+
+
+
+procedure TfrmTableReservation.sbtnRTSubmitClick(Sender: TObject);
+begin
+  if ReserverTable(StrToInt(dblbRT.SelectedItem), 2,
+    StrToInt(FormatDateTime('hh', tpRST.Time)),
+    StrToInt(FormatDateTime('hh', tpRET.Time)), DateToStr(dpRD.Date)) then
   begin
     ShowMessage('رزرو ثبت شد');
-    SpeedButton1.Enabled := False;
+    sbtnRTSubmit.Enabled := False;
   end
   else
     ShowMessage('مشکلی در رزرو پیش آمد. لطفا دوباره امتحان کنید');
 end;
 
-procedure TfrmTableReservation.TPEndTimerTableReservationChange(
-  Sender: TObject);
-begin
-btnSubmitReserveDisable;
-end;
 
-procedure TfrmTableReservation.TPStartTimerTableReservationChange(
-  Sender: TObject);
-begin
-btnSubmitReserveDisable;
-end;
+
+//code for disabling sbtnRTSubmit on any change!
+//procedure TfrmTableReservation.tpRETChange(Sender: TObject);
+//begin
+//  sbtnRTSubmitDisable;
+//end;
+//
+//procedure TfrmTableReservation.tpRSTChange(Sender: TObject);
+//begin
+//  sbtnRTSubmitDisable;
+//end;
+//
+//procedure TfrmTableReservation.dblbRTClick(Sender: TObject);
+//begin
+//  sbtnRTSubmitDisable;
+//end;
+//
+//procedure TfrmTableReservation.dpRDChange(Sender: TObject);
+//begin
+//  sbtnRTSubmitDisable;
+//end;
 
 end.
