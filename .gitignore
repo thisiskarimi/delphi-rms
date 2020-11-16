@@ -42,3 +42,6 @@ modules/
 
 # jetbrains Settings
 .idea/
+
+# amirhosein personal files
+/fast_insert_data.py
