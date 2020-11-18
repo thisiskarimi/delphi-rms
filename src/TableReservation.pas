@@ -67,12 +67,12 @@ var
   i: integer;
 begin
   i := MinutesBetween(tpRET.Time, tpRST.Time);
-  if TimeToStr(tpRST.Time) > TimeToStr(tpRET.Time) then
-    ShowMessage('زمان شروع باید قبل تر باشد');
-  if i < 60 then
-    ShowMessage('حداقل زمان رزرو 30 دقیقه میباشد');
 
-  if not IsReserveAbleRTable(StrToInt(dblbRT.SelectedItem),
+  if TimeToStr(tpRST.Time) > TimeToStr(tpRET.Time) then
+    ShowMessage('زمان شروع باید قبل تر باشد')
+  else if i < 60 then
+    ShowMessage('حداقل زمان رزرو 30 دقیقه میباشد')
+  else if not IsReserveAbleRTable(StrToInt(dblbRT.SelectedItem),
     StrToInt(FormatDateTime('hh', tpRST.Time)),
     StrToInt(FormatDateTime('hh', tpRET.Time)), DateToStr(dpRD.Date)) then
     ShowMessage('رزروی با اطلاعات مشابه وجود دارد')
