@@ -23,19 +23,36 @@ begin
   qry := TFDQuery.Create(nil);
   qry.Connection := dm.ConnectionMain;
   try
-    qry.SQL.Text := 'select * from rtable_reservation where(' +
-      ' table_id = :rtable_number and reserve_date = :reserve_date and start_time = :start_time and end_time = :end_time);';
-    qry.Params.ParamByName('rtable_number').Value := rtable_number;
-    qry.Params.ParamByName('start_time').Value := start_time;
-    qry.Params.ParamByName('end_time').Value := end_time;
-    qry.Params.ParamByName('reserve_date').Value := date;
-    qry.Open;
+    with qry do
+    begin
+    Close;
+    SQL.Clear;
+    SQL.Add(' SELECT tr.id ');
+    SQL.Add(' FROM rtable_reservation AS tr ');
+    SQL.Add(' WHERE table_id = :rtable_number ');
+    SQL.Add(' AND reserve_date = :reserve_date ');
+    SQL.Add(' AND start_time = :start_time ');
+    SQL.Add(' AND end_time = :end_time ');
+    SQL.Add(' LIMIT 1 ');
+
+//    SQL.Text := 'select * from rtable_reservation where(' +
+//      ' table_id = :rtable_number and reserve_date = :reserve_date and start_time = :start_time and end_time = :end_time);';
+    Params.ParamByName('rtable_number').Value := rtable_number;
+    Params.ParamByName('start_time').Value := start_time;
+    Params.ParamByName('end_time').Value := end_time;
+    Params.ParamByName('reserve_date').Value := date;
+    ExecSQL;
+    close;
+//    Open;
+    end;
     if qry.RecordCount > 0 then
       Result := False
     else
       Result := True;
-  except
-    Result := False;
+  finally
+    FreeAndNil(qry);
+//  except
+//    Result := False;
   end;
 end;
 
